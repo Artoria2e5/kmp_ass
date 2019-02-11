@@ -1,12 +1,26 @@
 #include "string_matching.h"
 
-int string_matching_kmp(char *text, int N, char* pattern, int M){
+int string_matching_kmp(const char *text, int N, const char* pattern, int M) {
 	int count = 0;
 	int *overlap_list = overlap_array(pattern, M);
 	printf("overlap function: ");
-	print_array(overlap_list,M);
+	print_array(overlap_list, M);
 	
-	//TODO - implement kmp search
+    int i = 0, j = 0;
+	while (i<N) {
+        if (pattern[j] == text[i]) {
+            i++; j++;
+            if (j == M) {
+                count++;
+                j = overlap_list[j-1];
+            }
+        } else {
+            j = overlap_list[j-1];
+            if (j < 0) {
+                i++; j++;
+            }
+        }
+    }
 	free(overlap_list);
 	return count;
 }
@@ -20,7 +34,7 @@ int string_matching_kmp(char *text, int N, char* pattern, int M){
     parameters - pattern: string to be preprocessed, M: pattern length
     return: an array with the values of an overlap function for each pattern position
  */
-int * overlap_array(char* pattern, int M){
+int *overlap_array(const char* pattern, int M) {
 	int *ol_list = calloc(M, sizeof(int));    
 
     int pos = 1;  // first is always zero

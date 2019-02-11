@@ -5,10 +5,10 @@
 #include <time.h>
 #include <stdlib.h>
 
-int string_matching_naive(char *text, int N, char* pattern, int M);
-int string_matching_kmp(char *text, int N, char* pattern, int M);
+int string_matching_naive(const char *text, int N, const char* pattern, int M);
+int string_matching_kmp(const char *text, int N, const char* pattern, int M);
 
-int * overlap_array(char* pattern, int M);
-void print_array(int *arr, int size);
+int *overlap_array(const char* pattern, int M);
+void print_array(const int *arr, int size);
 
 #endif
